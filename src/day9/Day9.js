@@ -56,7 +56,7 @@ class Day9 extends React.Component {
       ((Number(a) + Number(item)) === Number(target))
     );
     if(result){console.log(`result: ${result}`)}
-    return result !== undefined
+    return (result !== undefined && result.length > 0)
   }
 }
 

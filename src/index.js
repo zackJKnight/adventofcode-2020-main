@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Grid, Row, Col } from "react-flexbox-grid";
-import { Day4 } from "./day4/Day4";
+import { Day11 } from "./day11/Day11";
 
 class App extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class App extends React.Component {
       <Grid>
         <Row>
           <Col>
-            <Day4></Day4>
+            <Day11></Day11>
           </Col>
         </Row>
       </Grid>

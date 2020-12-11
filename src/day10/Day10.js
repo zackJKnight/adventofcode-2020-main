@@ -31,6 +31,7 @@ class Day10 extends React.Component {
   countMatches(text) {
     let sortedJoltages = this.sortJoltagesAscending(text).map(a => Number(a))
     sortedJoltages.push(Math.max(...sortedJoltages) + 3);
+    sortedJoltages.unshift(0);
     let lowerByOne = this.countRatingDifference(sortedJoltages, 1)
     let lowerByThree = this.countRatingDifference(sortedJoltages, 3);
 
@@ -38,7 +39,9 @@ class Day10 extends React.Component {
   }
 
   countRatingDifference(arr, diff){
-  let result = arr.filter((a, index) => arr[index +1] - a === diff);
+  let result = arr.filter((a, index) => 
+  arr[index +1] - a === diff
+  );
   return result;
   }
 

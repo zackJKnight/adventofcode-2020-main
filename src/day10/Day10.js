@@ -29,8 +29,8 @@ class Day10 extends React.Component {
   }
 
   countMatches(text) {
-    let sortedJoltages = this.sortJoltagesAscending(text)
-
+    let sortedJoltages = this.sortJoltagesAscending(text).map(a => Number(a))
+    sortedJoltages.push(Math.max(...sortedJoltages) + 3);
     let lowerByOne = this.countRatingDifference(sortedJoltages, 1)
     let lowerByThree = this.countRatingDifference(sortedJoltages, 3);
 
@@ -51,6 +51,7 @@ export { Day10 };
 
 // incorrect guesses
 // 1664 too low
+// 1728 too low
 
 // correct 
 // 

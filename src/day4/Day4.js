@@ -17,13 +17,25 @@ class Day4 extends React.Component {
   }
 
   prepData(text) {
-    let result = text.split("\n\n");
-
-    //    let removedSpaces = result.map(line => line.replace(' ', ','))
-    //   let removedLineBreaks = removedSpaces.map(line => line.replace('\n', ';'))
-    // let removedSecondSpaces = removedLineBreaks.map(line => line.replace(' ', ';'))
-    // let removedSecondLineBreaks = removedSecondSpaces.map(line => line.replace('\n', ';'))
-    return result;
+    let passports = [];
+    let passportFields = this.passportFields();
+    let results = text.split("\n\n");
+    let passport = {};
+    for (let result of results) {
+      for (let field of passportFields) {
+        if (field.optional === 0) {
+          let search = String.raw`\S*`;
+          let re = new RegExp(`${field.alias}:${search}`);
+          let selectedValue = result.match(re);
+          if(selectedValue){
+          passport[field.alias] = selectedValue[0].split(":")[1];
+          }
+        }
+      }
+      passports.push(passport);
+      passport = {};
+    }
+    return passports;
   }
 
   passportFields() {
@@ -82,37 +94,30 @@ class Day4 extends React.Component {
   countMatches(text) {
     let matches = 0;
 
-    let passportFields = this.passportFields();
-
     for (let passport of text) {
       let isValid = true;
-      for (let field of passportFields) {
-        
-        if (field.optional === 0) {
-          let search = String.raw`\S*`;
-          let re = new RegExp(`${field.alias}:${search}`);
-          let selectedValue = passport.match(re);
-          if (
-            selectedValue === undefined ||
-            selectedValue === null ||
-            selectedValue[0].split(":")[1] === undefined
-          ) {
-            isValid = false;
-            console.log(`no match on ${field.name} of ${text.indexOf(passport)}`)
-          } else {
 
-          }
-        }
+      // if (
+      //   selectedValue === undefined ||
+      //   selectedValue === null ||
+      //   selectedValue[0].split(":")[1] === undefined
+      // ) {
+      //   isValid = false;
+      //   console.log(`no match on ${field.name} of ${text.indexOf(passport)}`);
+      // } else {
+      // }
 
+      if (isValid) {
+        matches++;
+      } else {
+        isValid = true;
       }
-if(isValid){
-  matches++;
-}else{
-  isValid = true;
-}
-
     }
     this.result = matches;
+  }
+
+  validBirthYear(byr) {
+    return byr.match(String.raw`\d`).length === 4 && byr >= 1920 && byr <= 2002;
   }
 }
 
